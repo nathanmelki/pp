@@ -1,148 +1,212 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pelle & Pioche</title>
-    <link rel="icon" href="pplogo.webp" type="image/webp">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #cfcfcf;
-            color: #2c2c2c;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            background-color: #3d3d3d;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        header img {
-            max-width: 80px;
-            transition: transform 0.3s ease;
-        }
-        header img:hover {
-            transform: scale(1.1);
-        }
-        nav, .nav-right {
-            display: flex;
-            gap: 20px;
-        }
-        nav a, .nav-right a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #5c5c5c, #4a4a4a);
-            border-radius: 12px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-        nav a:hover, .nav-right a:hover {
-            background: linear-gradient(135deg, #6d6d6d, #5a5a5a);
-            transform: scale(1.1);
-        }
-        .container {
-            flex: 1;
-            padding: 40px;
-            max-width: 900px;
-            margin: 40px auto;
-            background: linear-gradient(145deg, #e8e8e8, #d0d0d0);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 40px 0;
-        }
-        .card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        h2 {
-            color: #333333;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        p {
-            color: #444444;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-        footer {
-            background-color: #3d3d3d;
-            color: #ffffff;
-            text-align: center;
-            padding: 15px 0;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelle & Pioche - Secure LLM Apps</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+    nav {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+    }
+    nav .logo img {
+      height: 40px;
+      width: auto;
+      margin-right: 10px;
+    }
+    nav .logo span {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1e40af;
+    }
+    .btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+    .hero {
+      background: linear-gradient(180deg, #93c5fd, #dbeafe);
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 52px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #60a5fa;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #4b5563;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .problem, .enterprise {
+      background-color: #f3f4f6;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 800px;
+    }
+    .enterprise-cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background-color: #f3f4f6;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .screenshot-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      margin: 40px auto;
+      border: 1px solid #e0e0e0;
+      gap: 40px; /* Increased space between text and image */
+    }
+    .screenshot-section .text-content {
+      flex: 1;
+      padding: 20px;
+      text-align: left;
+    }
+    .screenshot-section .image-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .screenshot-section img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    footer {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="pplogo.webp" alt="Pelle & Pioche Logo">
-            <h1>Pelle & Pioche</h1>
-        </div>
-        <nav>
-            <a href="catalogue.html">Catalogue des Applications</a>
-        </nav>
-        <div class="nav-right">
-            <a href="#onprem">Sur Site</a>
-            <a href="#private">Privée</a>
-            <a href="#public">Public</a>
-            <a href="#login">Connexion</a>
-        </div>
-    </header>
-    <div class="container">
-        <div class="grid">
-            <div class="card">
-                <h2>Enrichissement de Données</h2>
-                <p>Optimisez vos données pour des performances IA accrues.</p>
-            </div>
-            <div class="card">
-                <h2>Privatisation des Modèles</h2>
-                <p>Assurez la confidentialité de vos modèles d'IA sur mesure.</p>
-            </div>
-            <div class="card">
-                <h2>Sécurisation 9001, 27001, HDS</h2>
-                <p>Conformité aux normes de sécurité les plus strictes.</p>
-            </div>
-            <div class="card">
-                <h2>Serveurs et Puissances sur Demande</h2>
-                <p>Accédez à des ressources évolutives et illimitées.</p>
-            </div>
-        </div>
+  <nav>
+    <div class="logo">
+      <img src="pplogo.webp" alt="Pelle & Pioche Logo">
+      <span>Pelle & Pioche</span>
     </div>
-    <footer>
-        <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
-    </footer>
+    <div>
+      <a href="#">Se connecter</a>
+      <a href="#" class="btn">Nous rencontrer →</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Construire un environnement IA sécurisé et privé</h1>
+    <p>Bénéficiez des modèles de Mistral AI, OpenAI, META etc.. en local et privé.</p>
+    <a href="#" class="btn">Comprendre en un schéma →</a>
+  </div>
+
+  <section>
+    <h2>Quel est le problème aujourd'hui ?</h2>
+    <div class="problem">
+      <h3>La sécurité de vos applications est le coeur de notre métier</h3>
+      <p>Les PME et ETI ne peuvent pas se permettre de rendre vulnérable leurs parcs informatiques par le biais de l'IA. Nous les aidons à identifier leurs besoins IA et dans la mise en place d'IA privée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Notre solution en 3 temps</h2>
+    <div class="enterprise-cards">
+      <div class="card">
+        <h3>Évaluation de vos besoins IA</h3>
+        <p>Puissance, modèle utilisé, applications utiles</p>
+      </div>
+      <div class="card">
+        <h3>Mise en place d'un modèle IA local</h3>
+        <p>Via notre hébergeur Infoclip</p>
+      </div>
+      <div class="card">
+        <h3>Continuité dans les systèmes</h3>
+        <p>Évolution des systèmes au rythme des nouveautés</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="text-content">
+      <h2>Une application complète</h2>
+      <ul>
+        <li>Bénéficiez des modèles IA Opensource les plus récents.</li>
+        <li>De nombreuses applications directement intégrés.</li>
+        <li>D'une interface d'inspection d'activité.</li>
+        <li>D'une Marketplace d'application IA Privée.</li>
+      </ul>
+    </div>
+    <div class="image-content">
+      <img src="z.webp" alt="Capture d'écran de l'application">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
+  </footer>
 </body>
 </html>
