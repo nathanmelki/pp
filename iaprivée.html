@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pelle & Pioche - IA privée</title>
+  <title>Pelle & Pioche - Marketplace IA</title>
   <style>
     * {
       box-sizing: border-box;
@@ -126,6 +126,37 @@
       padding: 20px 0;
       margin-top: 50px;
     }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 40px 0;
+      border: 2px solid #d1d5db;
+      padding: 20px;
+      border-radius: 15px;
+    }
+    .info-section img {
+      width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .info-section .text {
+      width: 45%;
+      font-size: 16px;
+      color: #4b5563;
+    }
+
+    .info-section-reversed {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 40px 0;
+      border: 2px solid #d1d5db;
+      padding: 20px;
+      border-radius: 15px;
+      flex-direction: row-reverse;
+    }
   </style>
 </head>
 <body>
@@ -135,7 +166,7 @@
       <span>Pelle & Pioche</span>
     </div>
     <div>
-      <a href="jobai.html">Job IA</a>
+      <a href="marketplace.html">Marketplace IA</a>
       <a href="iaprivée.html">IA privée</a>
       <a href="#">Se connecter</a>
       <a href="#" class="btn">Nous rencontrer →</a>
@@ -187,6 +218,42 @@
         <h3>Optimisation des Performances - Détails</h3>
         <p>Nous offrons des outils d'optimisation des performances pour garantir que vos modèles IA fonctionnent de manière fluide et efficace, en ajustant les ressources selon vos besoins spécifiques.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Marketplace Section -->
+  <section class="info-section">
+    <div class="text">
+      <h3>Accédez à une Marketplace d'Applications IA</h3>
+      <p>Notre marketplace vous permet de sélectionner et déployer rapidement des applications IA adaptées à votre domaine d'activité. Que vous ayez besoin d'outils pour le traitement d'images, la gestion de données ou l'automatisation, vous trouverez une solution prête à l'emploi ici.</p>
+    </div>
+    <img src="marketplace-screen.png" alt="Marketplace IA">
+  </section>
+
+  <!-- Application proposées Section -->
+  <section class="info-section-reversed">
+    <img src="applications-screen.png" alt="Applications proposées">
+    <div class="text">
+      <h3>Applications proposées pour vos besoins</h3>
+      <p>Nous proposons des applications IA spécialement conçues pour résoudre des problèmes spécifiques, comme la reconnaissance d'images, le traitement du langage naturel, ou encore l'analyse prédictive. Sélectionnez l'application qui correspond à vos besoins et lancez-la immédiatement.</p>
+    </div>
+  </section>
+
+  <!-- Activité et Trafics AI Section -->
+  <section class="info-section">
+    <div class="text">
+      <h3>Suivi de l'activité et du trafic IA</h3>
+      <p>Suivez les performances de vos modèles IA en temps réel. Vous pouvez analyser les volumes de données traitées, les utilisateurs connectés, et l'impact des modèles sur vos systèmes en toute simplicité.</p>
+    </div>
+    <img src="traffic-screen.png" alt="Activité et Trafics AI">
+  </section>
+
+  <!-- Nouveautés Section -->
+  <section class="info-section-reversed">
+    <img src="new-features-screen.png" alt="Nouveautés">
+    <div class="text">
+      <h3>Découvrez les dernières nouveautés</h3>
+      <p>Restez informé des dernières mises à jour, nouvelles applications et fonctionnalités IA disponibles. Nous mettons à jour régulièrement notre marketplace pour vous offrir des solutions toujours plus performantes.</p>
     </div>
   </section>
 
