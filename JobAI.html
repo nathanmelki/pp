@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelle & Pioche - Recommandations IA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+    nav {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+    }
+    nav .logo img {
+      height: 40px;
+      width: auto;
+      margin-right: 10px;
+    }
+    nav .logo span {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1e40af;
+    }
+    .btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+    .hero {
+      background: linear-gradient(180deg, #93c5fd, #dbeafe);
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 52px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #60a5fa;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #4b5563;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .card {
+      background-color: #f3f4f6;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .problem, .recommendations {
+      background-color: #f3f4f6;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 800px;
+    }
+    .details {
+      display: none;
+      padding: 20px;
+      background-color: #e0f7fa;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+  <script>
+    function toggleDetails(job) {
+      const details = document.querySelectorAll(`.details`);
+      details.forEach(detail => detail.style.display = "none"); // Hide all details
+      const detail = document.getElementById(job);
+      if (detail.style.display === "none" || detail.style.display === "") {
+        detail.style.display = "block"; // Show clicked details
+      } else {
+        detail.style.display = "none"; // Hide again if clicked
+      }
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="pplogo.webp" alt="Pelle & Pioche Logo"></a>
+      <span>Pelle & Pioche</span>
+    </div>
+    <div>
+      <a href="JobAI.html">Job IA</a>
+      <a href="iaprivée.html">IA privée</a>
+      <a href="#">Se connecter</a>
+      <a href="#" class="btn">Nous rencontrer →</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Nos serveurs, vos machines virtuelles IA</h1>
+    <p>Découvrez les configurations matérielles idéales pour vos applications d'IA en fonction de vos besoins spécifiques.</p>
+  </div>
+
+  <section>
+    <h2>Les 4 jobs d'IA et leurs recommandations</h2>
+    <div class="cards">
+      <div class="card" onclick="toggleDetails('job1')">
+        <h3>Entraînement de Modèles Profonds</h3>
+        <p>Idéal pour les réseaux de neurones (CNN, RNN, Transformer).</p>
+      </div>
+      <div id="job1" class="details">
+        <h3>Entraînement de Modèles Profonds - Détails</h3>
+        <p>Cette approche nécessite une puissance de calcul intense pour entraîner des réseaux de neurones profonds sur des jeux de données volumineux. Voici ce que nous recommandons :</p>
+        <ul>
+          <li>GPU : Tesla A100 ou V100</li>
+          <li>CPU : 8-16 cœurs</li>
+          <li>RAM : 64-128 Go</li>
+          <li>Stockage : SSD 1 To ou plus pour gérer les jeux de données volumineux</li>
+        </ul>
+      </div>
+
+      <div class="card" onclick="toggleDetails('job2')">
+        <h3>Inférence de Modèles IA</h3>
+        <p>Exécution de modèles pré-entraînés pour des tâches en temps réel.</p>
+      </div>
+      <div id="job2" class="details">
+        <h3>Inférence de Modèles IA - Détails</h3>
+        <p>Ce job consiste à effectuer des inférences à partir de modèles pré-entraînés pour des applications en temps réel comme la reconnaissance d'images ou la traduction automatique :</p>
+        <ul>
+          <li>GPU : T4 ou V100</li>
+          <li>CPU : 8-16 cœurs</li>
+          <li>RAM : 32-64 Go</li>
+          <li>Stockage : SSD 500 Go pour un accès rapide aux données et aux modèles</li>
+        </ul>
+      </div>
+
+      <div class="card" onclick="toggleDetails('job3')">
+        <h3>Traitement de Données et Prétraitement</h3>
+        <p>Nettoyage et préparation des données avant entraînement.</p>
+      </div>
+      <div id="job3" class="details">
+        <h3>Traitement de Données et Prétraitement - Détails</h3>
+        <p>Le traitement des données est une étape cruciale avant l’entraînement des modèles d'IA. Cela implique le nettoyage, l'étiquetage et la transformation des données :</p>
+        <ul>
+          <li>CPU : 8-16 cœurs pour des calculs parallèles rapides</li>
+          <li>RAM : 32-64 Go pour une gestion fluide des gros volumes de données</li>
+          <li>GPU : Optionnel, sauf pour les tâches spécifiques (ex. : augmentation des données d'image)</li>
+          <li>Stockage : SSD 500 Go pour un traitement rapide des datasets</li>
+        </ul>
+      </div>
+
+      <div class="card" onclick="toggleDetails('job4')">
+        <h3>Développement et Test de Modèles</h3>
+        <p>Développement de modèles et test sur des jeux de données plus petits.</p>
+      </div>
+      <div id="job4" class="details">
+        <h3>Développement et Test de Modèles - Détails</h3>
+        <p>Cette phase consiste à tester des prototypes de modèles d'IA et à les affiner pour des performances optimales. Les configurations recommandées sont :</p>
+        <ul>
+          <li>GPU : T4 ou A100 pour tester les modèles IA rapidement</li>
+          <li>CPU : 4-8 cœurs pour des tests sur des petits datasets</li>
+          <li>RAM : 16-32 Go pour gérer les prototypes légers</li>
+          <li>Stockage : SSD 256 Go pour stocker les modèles et les datasets d'essai</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Besoins de Connectivité et Performance</h2>
+    <div class="recommendations">
+      <h3>Connectivité</h3>
+      <p>Assurez une connexion réseau rapide et fiable pour vos applications IA. Pour des données massives, une connexion 10 GbE est recommandée pour des transferts rapides entre les VM et le stockage.</p>
+
+      <h3>Performance</h3>
+      <p>Pour des performances optimales, il est essentiel d'avoir des ressources adéquates et de les ajuster en fonction de la charge de travail. Prévoyez des options de mise à l'échelle automatique pour ajuster les ressources en fonction de la demande.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
