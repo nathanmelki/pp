@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelle & Pioche - IA privée</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+    nav {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+    }
+    nav .logo img {
+      height: 40px;
+      width: auto;
+      margin-right: 10px;
+    }
+    nav .logo span {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1e40af;
+    }
+    .btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+    .hero {
+      background: linear-gradient(180deg, #93c5fd, #dbeafe);
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 52px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #60a5fa;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #4b5563;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .card {
+      background-color: #f3f4f6;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      background-color: #d1d5db;
+    }
+    .card.selected {
+      background-color: #4b5563;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .details {
+      display: none;
+      padding: 20px;
+      background-color: #e0f7fa;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="pplogo.webp" alt="Pelle & Pioche Logo"></a>
+      <span>Pelle & Pioche</span>
+    </div>
+    <div>
+      <a href="marketplace.html">Marketplace IA</a>
+      <a href="iaprivée.html">IA privée</a>
+      <a href="#">Se connecter</a>
+      <a href="#" class="btn">Nous rencontrer →</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Votre Marketplace d'Applications IA</h1>
+    <p>Accédez à une large gamme d'applications IA et bénéficiez d'un serveur dédié pour exécuter des modèles IA adaptés à vos besoins spécifiques.</p>
+  </div>
+
+  <section>
+    <h2>Fonctionnalités de la Plateforme</h2>
+    <p>Notre plateforme vous offre une gamme complète de fonctionnalités pour vous aider à tirer le meilleur parti des technologies IA, sans nécessiter de compétences en développement.</p>
+
+    <div class="cards">
+      <div class="card" onclick="toggleDetails('feature1')">
+        <h3>Marketplace d'Applications IA</h3>
+        <p>Accédez à des applications IA adaptées à vos besoins.</p>
+      </div>
+      <div id="feature1" class="details">
+        <h3>Marketplace d'Applications IA - Détails</h3>
+        <p>Notre marketplace propose une large sélection d'applications IA prêtes à l'emploi. Trouvez des outils pour le traitement des données, la reconnaissance d'images, la génération de texte et bien plus encore.</p>
+      </div>
+
+      <div class="card" onclick="toggleDetails('feature2')">
+        <h3>Serveurs Dédiés</h3>
+        <p>Des serveurs personnalisés pour exécuter vos modèles IA.</p>
+      </div>
+      <div id="feature2" class="details">
+        <h3>Serveurs Dédiés - Détails</h3>
+        <p>Nous configurons et gérons un serveur dédié où vous pouvez déployer et faire tourner des modèles IA spécifiquement adaptés à vos besoins. Personnalisez votre serveur en fonction de vos exigences.</p>
+      </div>
+
+      <div class="card" onclick="toggleDetails('feature3')">
+        <h3>Support Client 24/7</h3>
+        <p>Assistance continue pour résoudre tous vos problèmes.</p>
+      </div>
+      <div id="feature3" class="details">
+        <h3>Support Client 24/7 - Détails</h3>
+        <p>Notre équipe d'experts IA est disponible 24/7 pour vous aider à résoudre vos problèmes techniques, répondre à vos questions et vous guider dans l'utilisation des applications IA.</p>
+      </div>
+
+      <div class="card" onclick="toggleDetails('feature4')">
+        <h3>Optimisation des Performances</h3>
+        <p>Optimisez les ressources de votre serveur pour des performances accrues.</p>
+      </div>
+      <div id="feature4" class="details">
+        <h3>Optimisation des Performances - Détails</h3>
+        <p>Nous offrons des outils d'optimisation des performances pour garantir que vos modèles IA fonctionnent de manière fluide et efficace, en ajustant les ressources selon vos besoins spécifiques.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    function toggleDetails(feature) {
+      const details = document.querySelectorAll('.details');
+      details.forEach(detail => detail.style.display = "none");
+      const detail = document.getElementById(feature);
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => card.classList.remove("selected"));
+
+      if (detail.style.display === "none" || detail.style.display === "") {
+        detail.style.display = "block";
+        const selectedCard = document.querySelector(`.card[onclick="toggleDetails('${feature}')"]`);
+        selectedCard.classList.add("selected");
+      } else {
+        detail.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
