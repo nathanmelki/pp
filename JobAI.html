@@ -96,10 +96,15 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       margin: 20px;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s;
     }
     .card:hover {
-      transform: scale(1.05);
+      background-color: #d1d5db;
+    }
+    .card.selected {
+      background-color: #4b5563;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
     .cards {
       display: flex;
@@ -121,6 +126,13 @@
       margin-top: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    .slider-container {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .slider {
+      width: 100%;
+    }
     footer {
       background-color: #1e3a8a;
       color: white;
@@ -131,14 +143,32 @@
   </style>
   <script>
     function toggleDetails(job) {
-      const details = document.querySelectorAll(`.details`);
-      details.forEach(detail => detail.style.display = "none"); // Hide all details
+      const details = document.querySelectorAll('.details');
+      details.forEach(detail => detail.style.display = "none");
       const detail = document.getElementById(job);
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => card.classList.remove("selected"));
+
       if (detail.style.display === "none" || detail.style.display === "") {
-        detail.style.display = "block"; // Show clicked details
+        detail.style.display = "block";
+        const selectedCard = document.querySelector(`.card[onclick="toggleDetails('${job}')"]`);
+        selectedCard.classList.add("selected");
       } else {
-        detail.style.display = "none"; // Hide again if clicked
+        detail.style.display = "none";
       }
+    }
+
+    function calculatePrice() {
+      let basePrice = 0.5; // Example base price per CPU unit
+      const cpuCount = document.getElementById("cpuSlider").value;
+      const gpuCount = document.getElementById("gpuSlider").value;
+      const ramSize = document.getElementById("ramSlider").value;
+      const usersCount = document.getElementById("usersSlider").value;
+
+      // Basic calculation example
+      let price = (basePrice * cpuCount) + (0.8 * gpuCount) + (0.2 * ramSize) * usersCount;
+
+      document.getElementById("priceDisplay").innerHTML = "Tarification horaire estimée : €" + price.toFixed(2);
     }
   </script>
 </head>
@@ -229,13 +259,163 @@
   <section>
     <h2>Besoins de Connectivité et Performance</h2>
     <div class="recommendations">
-      <h3>Connectivité</h3>
-      <p>Assurez une connexion réseau rapide et fiable pour vos applications IA. Pour des données massives, une connexion 10 GbE est recommandée pour des transferts rapides entre les VM et le stockage.</p>
+      <h3>1. Quelle est la bande passante réseau requise ?</h3>
+      <p>La bande passante nécessaire dépend de la quantité de données traitées par votre modèle IA. Pour des modèles gourmands en données, il est recommandé de disposer d'une bande passante élevée, comme une connexion 10 GbE, pour assurer des transferts rapides entre les machines et le stockage.</p>
 
-      <h3>Performance</h3>
-      <p>Pour des performances optimales, il est essentiel d'avoir des ressources adéquates et de les ajuster en fonction de la charge de travail. Prévoyez des options de mise à l'échelle automatique pour ajuster les ressources en fonction de la demande.</p>
+      <h3>2. Quelle est l'importance de l'optimisation des GPU ?</h3>
+      <p>Les modèles d'IA les plus complexes, comme les réseaux de neurones profonds, nécessitent des GPU puissants pour réduire les temps de traitement. L'utilisation de CUDA/cuDNN et de frameworks comme TensorFlow ou PyTorch optimise l'utilisation des GPU, permettant un traitement plus rapide des données.</p>
+
+      <h3>3. Pourquoi la mise à l'échelle automatique est-elle cruciale ?</h3>
+      <p>La mise à l'échelle automatique permet d'ajuster dynamiquement les ressources (CPU, GPU, RAM) en fonction de la charge de travail. Cela est particulièrement utile pour les environnements de production où les besoins peuvent fluctuer rapidement en fonction des utilisateurs ou de la taille des datasets.</p>
+
+      <h3>4. Quelle est l'importance de la sécurité et de l'isolement des données ?</h3>
+      <p>Les modèles IA traitent souvent des données sensibles. Il est essentiel d'assurer l'isolement des données et de protéger les machines virtuelles avec des mécanismes de sécurité comme le chiffrement et l'authentification multi-facteurs pour garantir la confidentialité et l'intégrité des données.</p>
     </div>
   </section>
+
+  <section>
+  <h2>Simulation de Tarification Horaire</h2>
+  <p>Utilisez les curseurs ci-dessous pour estimer la tarification horaire en fonction des ressources nécessaires :</p>
+
+  <!-- Container pour les sliders -->
+  <div class="slider-container">
+    <label for="cpuSlider">Nombre de CPUs :</label>
+    <input type="range" id="cpuSlider" class="slider" min="1" max="16" value="4" oninput="calculatePrice()">
+    <div class="slider-value-container">
+      <span id="cpuValue">4</span> CPUs
+    </div>
+  </div>
+
+  <div class="slider-container">
+    <label for="gpuSlider">Nombre de GPUs :</label>
+    <input type="range" id="gpuSlider" class="slider" min="0" max="4" value="1" oninput="calculatePrice()">
+    <div class="slider-value-container">
+      <span id="gpuValue">1</span> GPU
+    </div>
+  </div>
+
+  <div class="slider-container">
+    <label for="ramSlider">Taille de RAM (Go) :</label>
+    <input type="range" id="ramSlider" class="slider" min="16" max="128" value="32" oninput="calculatePrice()">
+    <div class="slider-value-container">
+      <span id="ramValue">32</span> Go de RAM
+    </div>
+  </div>
+
+  <div class="slider-container">
+    <label for="usersSlider">Nombre d'utilisateurs connectés :</label>
+    <input type="range" id="usersSlider" class="slider" min="1" max="100" value="10" oninput="calculatePrice()">
+    <div class="slider-value-container">
+      <span id="usersValue">10</span> utilisateurs
+    </div>
+  </div>
+
+  <h3 id="priceDisplay">Tarification horaire estimée : €0.00</h3>
+</section>
+
+<style>
+  /* Section principale */
+  section {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1000px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 30px;
+    color: #1e40af;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #4b5563;
+    margin-bottom: 40px;
+  }
+
+  /* Conteneur des curseurs */
+  .slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #4b5563;
+  }
+
+  .slider-container label {
+    width: 40%;
+    font-weight: bold;
+  }
+
+  /* Personnalisation des curseurs */
+  .slider {
+    -webkit-appearance: none;
+    width: 60%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #1e40af;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .slider::-webkit-slider-thumb:hover {
+    background: #2563eb;
+  }
+
+  .slider-value-container {
+    font-weight: bold;
+    font-size: 18px;
+    color: #1e40af;
+  }
+
+  /* Affichage de la tarification horaire */
+  #priceDisplay {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e40af;
+    margin-top: 30px;
+    transition: color 0.3s ease;
+  }
+</style>
+
+<script>
+  function calculatePrice() {
+    let basePrice = 0.5; // Prix de base par CPU
+    const cpuCount = document.getElementById("cpuSlider").value;
+    const gpuCount = document.getElementById("gpuSlider").value;
+    const ramSize = document.getElementById("ramSlider").value;
+    const usersCount = document.getElementById("usersSlider").value;
+
+    // Mise à jour des valeurs des curseurs affichées
+    document.getElementById("cpuValue").textContent = cpuCount;
+    document.getElementById("gpuValue").textContent = gpuCount;
+    document.getElementById("ramValue").textContent = ramSize;
+    document.getElementById("usersValue").textContent = usersCount;
+
+    // Calcul de la tarification horaire (valeur simplifiée pour l'exemple)
+    let price = (basePrice * cpuCount) + (0.8 * gpuCount) + (0.2 * ramSize) * usersCount;
+
+    // Affichage du tarif
+    document.getElementById("priceDisplay").innerHTML = "Tarification horaire estimée : €" + price.toFixed(2);
+  }
+</script>
+
 
   <footer>
     <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
