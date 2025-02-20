@@ -144,55 +144,51 @@
     </div>
   </nav>
 
-  <div class="hero">
-    <h1>Posez une question à notre IA</h1>
-    <p>Posez une question et recevez une réponse instantanée depuis notre serveur IA.</p>
-  </div>
+   <h1>Pose une question à l'IA</h1>
 
-  <section class="input-container">
-    <input type="text" id="question" placeholder="Tapez votre question ici...">
-    <button class="btn" onclick="askQuestion()">Envoyer</button>
-  </section>
+    <input type="text" id="question" placeholder="Tape ta question ici">
+    <button onclick="askQuestion()">Envoyer</button>
 
-  <div id="response-container" class="response-container" style="display: none;">
-    <p class="loading">⏳ En attente de la réponse...</p>
-    <p id="response-text"></p>
-  </div>
+    <div id="response-container">
+        <p id="response-text">Réponse affichée ici...</p>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
-  </footer>
+    <script>
+        async function askQuestion() {
+            const questionInput = document.getElementById("question");
+            const responseContainer = document.getElementById("response-container");
+            const responseText = document.getElementById("response-text");
 
-  <script>
-    async function askQuestion() {
-      const questionInput = document.getElementById("question");
-      const responseContainer = document.getElementById("response-container");
-      const responseText = document.getElementById("response-text");
+            const question = questionInput.value.trim();
+            if (question === "") {
+                alert("Veuillez entrer une question.");
+                return;
+            }
 
-      const question = questionInput.value.trim();
-      if (question === "") {
-        alert("Veuillez entrer une question.");
-        return;
-      }
+            responseText.innerHTML = "⏳ En attente de la réponse...";
 
-      responseContainer.style.display = "block";
-      responseText.innerHTML = "⏳ En attente de la réponse...";
+            try {
+                const response = await fetch("http://185.158.132.138:8000/query", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ question: question })
+                });
 
-      try {
-        const response = await fetch("http://185.158.132.138:8000/query", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ question: question })
-        });
+                const data = await response.json();
+                console.log("Réponse reçue:", data);
 
-        const data = await response.json();
-        responseText.innerHTML = `<strong>💬 Réponse :</strong> ${data.response}`;
-      } catch (error) {
-        responseText.innerHTML = "❌ Erreur lors de la requête au serveur.";
-      }
-    }
-  </script>
+                if (data.answer) {
+                    responseText.innerHTML = `<strong>💬 Réponse :</strong> ${data.answer}`;
+                } else {
+                    responseText.innerHTML = "⚠️ Aucune réponse reçue.";
+                }
+            } catch (error) {
+                console.error("Erreur :", error);
+                responseText.innerHTML = "❌ Erreur lors de la requête au serveur.";
+            }
+        }
+    </script>
 </body>
 </html>
