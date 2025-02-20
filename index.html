@@ -59,6 +59,7 @@
       border-radius: 8px;
       text-decoration: none;
       transition: background-color 0.3s, transform 0.3s;
+      cursor: pointer;
     }
     .btn:hover {
       background-color: #2563eb;
@@ -88,54 +89,36 @@
       padding: 60px 20px;
       text-align: center;
     }
-    .problem, .enterprise {
-      background-color: #f3f4f6;
-      margin: 20px auto;
+    .input-container {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .input-container input {
+      width: 60%;
+      padding: 10px;
+      font-size: 18px;
+      border: 2px solid #1e40af;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+    .input-container button {
+      font-size: 18px;
+      padding: 10px 20px;
+    }
+    .response-container {
+      margin-top: 20px;
+      background: #fff;
       padding: 20px;
-      border-radius: 15px;
-      max-width: 800px;
-    }
-    .enterprise-cards {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .card {
-      background-color: #f3f4f6;
-      padding: 20px;
-      border-radius: 15px;
-      width: 250px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .screenshot-section {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-width: 1000px;
-      margin: 40px auto;
-      border: 1px solid #e0e0e0;
-      gap: 40px; /* Increased space between text and image */
-    }
-    .screenshot-section .text-content {
-      flex: 1;
-      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
       text-align: left;
     }
-    .screenshot-section .image-content {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
-    .screenshot-section img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .loading {
+      font-size: 18px;
+      color: #1e40af;
     }
     footer {
       background-color: #1e3a8a;
@@ -162,48 +145,54 @@
   </nav>
 
   <div class="hero">
-    <h1>Nos Solutions IA pour les Entreprises</h1>
-    <p>Découvrez nos offres adaptées à vos besoins en IA, avec des solutions sécurisées et évolutives pour améliorer vos performances.</p>
-    <a href="#solutions" class="btn">Découvrez nos solutions →</a>
+    <h1>Posez une question à notre IA</h1>
+    <p>Posez une question et recevez une réponse instantanée depuis notre serveur IA.</p>
   </div>
 
-  <section id="solutions">
-    <h2>Nos 3 Offres</h2>
-    <div class="enterprise-cards">
-      <div class="card">
-        <h3>Serveurs Optimisés pour l'IA</h3>
-        <p>Des serveurs puissants dédiés à l’entraînement et à l’inférence des modèles IA.</p>
-        <a href="VMAI.html" class="btn">En savoir plus →</a>
-      </div>
-      <div class="card">
-        <h3>Espace de Développement IA</h3>
-        <p>Un environnement collaboratif pour développer, entraîner et tester vos modèles IA.</p>
-        <a href="iaprivée.html" class="btn">En savoir plus →</a>
-      </div>
-      <div class="card">
-        <h3>IA Hébergée via API</h3>
-        <p>Accédez à des modèles IA pré-entraînés via API, prêts à l'emploi pour vos applications.</p>
-        <a href="JobAI.html" class="btn">En savoir plus →</a>
-      </div>
-    </div>
+  <section class="input-container">
+    <input type="text" id="question" placeholder="Tapez votre question ici...">
+    <button class="btn" onclick="askQuestion()">Envoyer</button>
   </section>
 
-  <section class="screenshot-section">
-    <div class="text-content">
-      <h2>Pourquoi choisir Pelle & Pioche ?</h2>
-      <ul>
-        <li>Solutions IA sécurisées et privées adaptées à vos besoins spécifiques.</li>
-        <li>Infrastructure optimisée pour les applications IA les plus exigeantes.</li>
-        <li>Accompagnement personnalisé pour chaque projet IA.</li>
-      </ul>
-    </div>
-    <div class="image-content">
-      <img src="z.webp" alt="Capture d'écran de l'application">
-    </div>
-  </section>
+  <div id="response-container" class="response-container" style="display: none;">
+    <p class="loading">⏳ En attente de la réponse...</p>
+    <p id="response-text"></p>
+  </div>
 
   <footer>
     <p>&copy; 2025 Pelle & Pioche. Tous droits réservés.</p>
   </footer>
+
+  <script>
+    async function askQuestion() {
+      const questionInput = document.getElementById("question");
+      const responseContainer = document.getElementById("response-container");
+      const responseText = document.getElementById("response-text");
+
+      const question = questionInput.value.trim();
+      if (question === "") {
+        alert("Veuillez entrer une question.");
+        return;
+      }
+
+      responseContainer.style.display = "block";
+      responseText.innerHTML = "⏳ En attente de la réponse...";
+
+      try {
+        const response = await fetch("http://185.158.132.138:8000/query", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question: question })
+        });
+
+        const data = await response.json();
+        responseText.innerHTML = `<strong>💬 Réponse :</strong> ${data.response}`;
+      } catch (error) {
+        responseText.innerHTML = "❌ Erreur lors de la requête au serveur.";
+      }
+    }
+  </script>
 </body>
 </html>
