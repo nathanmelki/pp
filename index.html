@@ -164,35 +164,35 @@
   </footer>
 
   <script>
-    async function askQuestion() {
-      const questionInput = document.getElementById("question");
-      const responseContainer = document.getElementById("response-container");
-      const responseText = document.getElementById("response-text");
+  async function askQuestion() {
+    const questionInput = document.getElementById("question");
+    const responseContainer = document.getElementById("response-container");
+    const responseText = document.getElementById("response-text");
 
-      const question = questionInput.value.trim();
-      if (question === "") {
-        alert("Veuillez entrer une question.");
-        return;
-      }
-
-      responseContainer.style.display = "block";
-      responseText.innerHTML = "⏳ En attente de la réponse...";
-
-      try {
-        const response = await fetch("http://185.158.132.138:8000/query", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ question: question })
-        });
-
-        const data = await response.json();
-        responseText.innerHTML = `<strong>💬 Réponse :</strong> ${data.response}`;
-      } catch (error) {
-        responseText.innerHTML = "❌ Erreur lors de la requête au serveur.";
-      }
+    const question = questionInput.value.trim();
+    if (question === "") {
+      alert("Veuillez entrer une question.");
+      return;
     }
-  </script>
+
+    responseContainer.style.display = "block";
+    responseText.innerHTML = "⏳ En attente de la réponse...";
+
+    try {
+      const response = await fetch("http://your-vm-ip:8000/query", {  // Remplacez par l'adresse IP de votre VM
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question: question })
+      });
+
+      const data = await response.json();
+      responseText.innerHTML = `<strong>💬 Réponse :</strong> ${data.response}`;
+    } catch (error) {
+      responseText.innerHTML = "❌ Erreur lors de la requête au serveur.";
+    }
+  }
+</script>
 </body>
 </html>
